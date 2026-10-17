@@ -199,6 +199,20 @@ within-backbone) read shipped parquets (regenerating them needs the Boltz-2 / RF
 
 ---
 
+## pH‑dependent design — 執行指南 (Traditional Chinese)
+
+### 中文完整指南
+[**PH_DESIGN_GUIDE.md**](PH_DESIGN_GUIDE.md) — 環境、安裝、Python API、`PHDesignCriteria` 參數
+（含 `placement_region` CDR 區間設定）、輸出、以及對照兩篇實驗論文
+(SIpHAB PMC11409498; Wade α‑neurotoxin PMC12439581) 的驗證結果與誤差。
+
+### 重點速查
+- 環境：`.venv`（uv, Python 3.12）；`torch 2.11.0+cu128`；GPU RTX 4090 可選。
+- 設計：`python inference/design_ph.py`，或 Python API `PottsMPNNPHEngine.run_ph_redesign(...)`。
+- 對 antibody/nanobody 的 CDR pH‑design：`placement_region=["interface"]`（避免跑到 constant chain）。
+- 性質：本引擎是 **設計器**（放 protonated 中心 + 重設計，最小化 Potts energy + selective energy），
+  **不是**單點 His protonation‑probability 預測器；驗證時看相對 pH‑selectivity，不看單殘基 hit。
+
 ## License
 
 This project is released under the **MIT License** — see [`LICENSE`](LICENSE). It covers the
